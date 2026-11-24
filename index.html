@@ -155,27 +155,100 @@
     color: var(--muted);
   }
 
-  .btn-buy {
+  /* Botões 3D Profissionais por Produto */
+  .btn-buy-3d {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    background: #22c55e;
-    color: #052e16;
+    gap: 9px;
+    padding: 11px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     font-size: 13.5px;
     font-weight: 800;
-    padding: 11px 16px;
-    border-radius: 12px;
-    text-decoration: none;
-    border: none;
+    letter-spacing: -0.2px;
     cursor: pointer;
-    transition: background 0.15s, transform 0.15s;
     white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.15s ease;
   }
-  .btn-buy:hover {
-    background: #16a34a;
+
+  /* Reflexo brilhante superior 3D */
+  .btn-buy-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 48%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
   }
-  .btn-buy:active {
-    transform: scale(0.97);
+
+  .btn-buy-3d .icon-3d {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+    transition: transform 0.18s ease;
+  }
+
+  .btn-buy-3d:hover .icon-3d {
+    transform: scale(1.12) rotate(-4deg);
+  }
+
+  /* Estilo 3D Xadrez (Esmeralda / Turquesa) */
+  .btn-chess-3d {
+    background: linear-gradient(180deg, #34d399 0%, #10b981 55%, #059669 100%);
+    color: #032218;
+    box-shadow:
+      0 5px 0 #047857,
+      0 10px 18px -4px rgba(16, 185, 129, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
+  .btn-chess-3d:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow:
+      0 7px 0 #047857,
+      0 14px 22px -4px rgba(16, 185, 129, 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  }
+  .btn-chess-3d:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 1px 0 #047857,
+      0 3px 8px rgba(16, 185, 129, 0.3),
+      inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Estilo 3D Calculadora (Ouro / Âmbar / Verde-Lima) */
+  .btn-calc-3d {
+    background: linear-gradient(180deg, #fde047 0%, #f59e0b 55%, #d97706 100%);
+    color: #271300;
+    box-shadow:
+      0 5px 0 #b45309,
+      0 10px 18px -4px rgba(245, 158, 11, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.65);
+  }
+  .btn-calc-3d:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow:
+      0 7px 0 #b45309,
+      0 14px 22px -4px rgba(245, 158, 11, 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.75);
+  }
+  .btn-calc-3d:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 1px 0 #b45309,
+      0 3px 8px rgba(245, 158, 11, 0.3),
+      inset 0 2px 4px rgba(0, 0, 0, 0.25);
   }
 
   /* Footer note */
@@ -388,7 +461,7 @@
     .product h2 { font-size: 16px; }
     .product .desc { font-size: 12.5px; margin-bottom: 14px; }
     .price { font-size: 18px; }
-    .btn-buy { padding: 12px 15px; font-size: 13px; }
+    .btn-buy-3d { padding: 11px 14px; font-size: 13px; }
     #qrcode, #qrcode img, #qrcode canvas { width: 170px !important; height: 170px !important; }
   }
 </style>
@@ -415,8 +488,17 @@
         </p>
         <div class="product-footer">
           <div class="price">R$ 10<span>,00</span></div>
-          <button type="button" class="btn-buy" onclick="openPixModal('Joguinho de Xadrez', 10.00)">
-            <span>💠</span> Comprar via Pix
+          <button type="button" class="btn-buy-3d btn-chess-3d" onclick="openPixModal('Joguinho de Xadrez', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <!-- Ícone 3D de Peça de Xadrez -->
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <circle cx="14" cy="6.2" r="3.4" fill="#064e3b" stroke="#ecfdf5" stroke-width="1.3"/>
+                <path d="M10.2 10.8C10.2 9.8 11.8 9.4 14 9.4C16.2 9.4 17.8 9.8 17.8 10.8L16.5 13.2H11.5L10.2 10.8Z" fill="#065f46" stroke="#ecfdf5" stroke-width="1.2"/>
+                <path d="M11.6 13.2H16.4L18.2 20.5H9.8L11.6 13.2Z" fill="#047857" stroke="#ecfdf5" stroke-width="1.2"/>
+                <rect x="7.5" y="20.5" width="13" height="3.6" rx="1.6" fill="#022c22" stroke="#a7f3d0" stroke-width="1.2"/>
+              </svg>
+            </span>
+            <span>Jogar &amp; Pagar Pix</span>
           </button>
         </div>
       </div>
@@ -433,8 +515,23 @@
         </p>
         <div class="product-footer">
           <div class="price">R$ 5<span>,00</span></div>
-          <button type="button" class="btn-buy" onclick="openPixModal('Calculadora de Juros Compostos', 5.00)">
-            <span>💠</span> Comprar via Pix
+          <button type="button" class="btn-buy-3d btn-calc-3d" onclick="openPixModal('Calculadora de Juros Compostos', 5.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <!-- Ícone 3D de Calculadora -->
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <rect x="6" y="3.5" width="16" height="21" rx="3.2" fill="#451a03" stroke="#fef3c7" stroke-width="1.3"/>
+                <rect x="8.5" y="6" width="11" height="4.5" rx="1.2" fill="#fef08a"/>
+                <circle cx="9.8" cy="14" r="1.4" fill="#fbbf24"/>
+                <circle cx="14" cy="14" r="1.4" fill="#fbbf24"/>
+                <circle cx="18.2" cy="14" r="1.4" fill="#34d399"/>
+                <circle cx="9.8" cy="17.8" r="1.4" fill="#fbbf24"/>
+                <circle cx="14" cy="17.8" r="1.4" fill="#fbbf24"/>
+                <rect x="16.8" y="16.4" width="2.8" height="5.2" rx="1.1" fill="#22c55e"/>
+                <circle cx="9.8" cy="21.4" r="1.4" fill="#fbbf24"/>
+                <circle cx="14" cy="21.4" r="1.4" fill="#fbbf24"/>
+              </svg>
+            </span>
+            <span>Simular &amp; Pagar Pix</span>
           </button>
         </div>
       </div>
