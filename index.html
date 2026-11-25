@@ -80,28 +80,187 @@
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.06);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
     display: flex;
     flex-direction: column;
   }
   .product:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
   }
 
+  /* Área da Imagem 3D */
   .product-visual {
-    height: 140px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 56px;
     position: relative;
+    overflow: hidden;
+    perspective: 1000px;
   }
+
+  /* Fundos Coloridos e Iluminação (Glow) */
   .product-visual.chess {
-    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    background: radial-gradient(circle at 50% 120%, #1e3a8a 0%, #0f172a 80%);
   }
+  .product-visual.chess::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #3b82f6;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.4;
+    z-index: 0;
+    bottom: -20px;
+  }
+
   .product-visual.calc {
-    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #db2777 100%);
+    background: radial-gradient(circle at 50% 120%, #6d28d9 0%, #1e1b4b 80%);
+  }
+  .product-visual.calc::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #f59e0b;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.5;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  /* =========================================
+     TABULEIRO DE XADREZ 3D (CSS + Icons8)
+     ========================================= */
+  .chess-scene {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    perspective: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  
+  /* Sombra de contato no chão, debaixo do tabuleiro */
+  .chess-scene::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 185px;
+    height: 40px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(4px);
+    z-index: 0;
+  }
+
+  .chess-board {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 130px;
+    height: 130px;
+    background: repeating-conic-gradient(#f0d9b5 0% 25%, #b58863 0% 50%) 50% / 32.5px 32.5px;
+    transform: rotateX(50deg) rotateZ(-20deg);
+    transform-style: preserve-3d;
+    border-radius: 6px;
+    border: 6px solid #5d4037;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.25), inset 0 0 18px rgba(0,0,0,0.35);
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Espessura 3D real: corpo de madeira abaixo da superfície */
+  .chess-board::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    background: linear-gradient(180deg, #6d4c41 0%, #4e342e 45%, #2d1a12 100%);
+    border-radius: 6px;
+    transform: translateZ(-16px);
+    box-shadow: 0 45px 45px rgba(0,0,0,0.65);
+  }
+
+  /* Brilho de luz varrendo as casas */
+  .chess-board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0) 55%);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  /* O tabuleiro levanta suavemente ao passar o mouse */
+  .product:hover .chess-board {
+    transform: rotateX(52deg) rotateZ(-20deg) translateZ(6px);
+  }
+
+  .piece {
+    position: absolute;
+    filter: drop-shadow(0 15px 10px rgba(0,0,0,0.7));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  /* Posicionamento das peças sobre o tabuleiro */
+  .p-knight { width: 65px; bottom: 25px; left: 0px; z-index: 3; }
+  .p-pawn1 { width: 45px; bottom: 0px; left: 85px; z-index: 2; }
+  .p-rook { width: 55px; bottom: 55px; right: 0px; z-index: 4; }
+  .p-queen { width: 60px; bottom: 10px; right: 40px; z-index: 5; }
+
+  /* Efeito Hover do Xadrez */
+  .product:hover .p-knight { transform: translateY(-10px) scale(1.1) rotate(-5deg); }
+  .product:hover .p-pawn1 { transform: translateY(-5px) scale(1.1) rotate(5deg); }
+  .product:hover .p-rook { transform: translateY(-12px) scale(1.1) rotate(10deg); }
+  .product:hover .p-queen { transform: translateY(-8px) scale(1.1) rotate(-5deg); }
+
+  /* =========================================
+     CALCULADORA + DINHEIRO 3D
+     ========================================= */
+  .img-calc-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+
+  .img-calculator {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    transform: translateX(15px) scale(1.1);
+    z-index: 2;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .img-money {
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
+    transform: translateX(-15px) translateY(10px);
+    z-index: 1;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .product:hover .img-calculator {
+    transform: translateX(25px) scale(1.2) rotate(-5deg);
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.8));
+  }
+
+  .product:hover .img-money {
+    transform: translateX(-25px) translateY(5px) scale(1.15) rotate(10deg);
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.8));
   }
 
   .product-body {
@@ -109,6 +268,9 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    background: var(--card);
+    position: relative;
+    z-index: 2;
   }
 
   .product-tag {
@@ -136,11 +298,13 @@
     flex: 1;
   }
 
+  /* CORREÇÃO DO LAYOUT DO FOOTER */
   .product-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    flex-wrap: nowrap; /* Impede quebra de linha */
   }
 
   .price {
@@ -148,6 +312,8 @@
     font-weight: 800;
     color: #4ade80;
     letter-spacing: -0.4px;
+    white-space: nowrap; /* Impede o preço de quebrar */
+    flex-shrink: 0;
   }
   .price span {
     font-size: 13px;
@@ -160,16 +326,19 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    padding: 11px 16px;
+    justify-content: center;
+    gap: 6px; /* Reduzido para caber melhor */
+    padding: 11px 12px; /* Ajustado para telas menores */
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.28);
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
     letter-spacing: -0.2px;
     cursor: pointer;
-    white-space: nowrap;
+    white-space: nowrap; /* Impede quebra do texto do botão */
     overflow: hidden;
+    flex: 1; /* Ocupa o espaço restante */
+    max-width: 165px; /* Evita que o botão fique gigante */
     transform: translateY(0);
     transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.12s cubic-bezier(0.22, 1, 0.36, 1),
@@ -187,8 +356,8 @@
   }
 
   .btn-buy-3d .icon-3d {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
@@ -456,15 +625,25 @@
       gap: 14px;
     }
 
-    .product-visual { height: 120px; font-size: 48px; }
+    .product-visual { height: 170px; }
+    
+    .chess-scene { transform: scale(0.9); }
+    .img-calculator { width: 95px; height: 95px; }
+    .img-money { width: 80px; height: 80px; }
+
     .product-body { padding: 16px; }
     .product h2 { font-size: 16px; }
     .product .desc { font-size: 12.5px; margin-bottom: 14px; }
     .price { font-size: 18px; }
-    .btn-buy-3d { padding: 11px 14px; font-size: 13px; }
+    
+    /* Ajuste fino do botão no celular */
+    .btn-buy-3d { font-size: 12px; padding: 11px 10px; max-width: 150px; gap: 4px; }
+    .btn-buy-3d .icon-3d { width: 18px; height: 18px; }
+    
     #qrcode, #qrcode img, #qrcode canvas { width: 170px !important; height: 170px !important; }
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="wrap">
@@ -479,7 +658,16 @@
 
     <!-- PRODUTO 1: XADREZ -->
     <article class="product">
-      <div class="product-visual chess">♟️</div>
+      <div class="product-visual chess">
+        <!-- Tabuleiro 3D via CSS com Peças Icons8 3D -->
+        <div class="chess-scene">
+          <div class="chess-board"></div>
+          <img src="https://img.icons8.com/3d-fluency/512/knight.png" alt="Cavalo" class="piece p-knight" />
+          <img src="https://img.icons8.com/3d-fluency/512/pawn.png" alt="Peão" class="piece p-pawn1" />
+          <img src="https://img.icons8.com/3d-fluency/512/pawn.png" alt="Torre" class="piece p-rook" />
+          <img src="https://img.icons8.com/3d-fluency/512/king.png" alt="Rei" class="piece p-queen" />
+        </div>
+      </div>
       <div class="product-body">
         <div class="product-tag">Jogo</div>
         <h2>Joguinho de Xadrez</h2>
@@ -490,7 +678,6 @@
           <div class="price">R$ 10<span>,00</span></div>
           <button type="button" class="btn-buy-3d btn-chess-3d" onclick="openPixModal('Joguinho de Xadrez', 10.00)">
             <span class="icon-3d" aria-hidden="true">
-              <!-- Ícone 3D de Peça de Xadrez -->
               <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
                 <circle cx="14" cy="6.2" r="3.4" fill="#064e3b" stroke="#ecfdf5" stroke-width="1.3"/>
                 <path d="M10.2 10.8C10.2 9.8 11.8 9.4 14 9.4C16.2 9.4 17.8 9.8 17.8 10.8L16.5 13.2H11.5L10.2 10.8Z" fill="#065f46" stroke="#ecfdf5" stroke-width="1.2"/>
@@ -498,7 +685,7 @@
                 <rect x="7.5" y="20.5" width="13" height="3.6" rx="1.6" fill="#022c22" stroke="#a7f3d0" stroke-width="1.2"/>
               </svg>
             </span>
-            <span>Jogar &amp; Pagar Pix</span>
+            <span>Jogar &amp; Pagar</span>
           </button>
         </div>
       </div>
@@ -506,7 +693,13 @@
 
     <!-- PRODUTO 2: CALCULADORA -->
     <article class="product">
-      <div class="product-visual calc">💰</div>
+      <div class="product-visual calc">
+        <!-- Grupo de Imagens 3D: Calculadora + Saquinho de Dinheiro -->
+        <div class="img-calc-group">
+          <img src="https://img.icons8.com/3d-fluency/512/calculator.png" alt="Calculadora 3D" class="img-calculator" />
+          <img src="https://img.icons8.com/3d-fluency/512/money-bag.png" alt="Saco de Dinheiro 3D" class="img-money" />
+        </div>
+      </div>
       <div class="product-body">
         <div class="product-tag">Ferramenta</div>
         <h2>Calculadora de Juros Compostos</h2>
@@ -517,7 +710,6 @@
           <div class="price">R$ 5<span>,00</span></div>
           <button type="button" class="btn-buy-3d btn-calc-3d" onclick="openPixModal('Calculadora de Juros Compostos', 5.00)">
             <span class="icon-3d" aria-hidden="true">
-              <!-- Ícone 3D de Calculadora -->
               <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
                 <rect x="6" y="3.5" width="16" height="21" rx="3.2" fill="#451a03" stroke="#fef3c7" stroke-width="1.3"/>
                 <rect x="8.5" y="6" width="11" height="4.5" rx="1.2" fill="#fef08a"/>
@@ -531,7 +723,7 @@
                 <circle cx="14" cy="21.4" r="1.4" fill="#fbbf24"/>
               </svg>
             </span>
-            <span>Simular &amp; Pagar Pix</span>
+            <span>Simular &amp; Pagar</span>
           </button>
         </div>
       </div>
