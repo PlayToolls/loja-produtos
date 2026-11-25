@@ -56,12 +56,30 @@
     margin-bottom: 14px;
     letter-spacing: 0.3px;
   }
+  
+  /* Título 3D Melhorado */
   header h1 {
-    font-size: clamp(24px, 5vw, 34px);
-    font-weight: 800;
-    letter-spacing: -0.6px;
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 900;
+    letter-spacing: -1px;
     line-height: 1.2;
+    color: #ffffff;
+    text-shadow:
+      0px 1px 0px #cbd5e1,
+      0px 2px 0px #94a3b8,
+      0px 3px 0px #64748b,
+      0px 4px 0px #475569,
+      0px 5px 0px #334155,
+      0px 6px 1px rgba(0,0,0,.1),
+      0px 0px 5px rgba(0,0,0,.1),
+      0px 1px 3px rgba(0,0,0,.3),
+      0px 3px 5px rgba(0,0,0,.2),
+      0px 5px 10px rgba(0,0,0,.25),
+      0px 10px 10px rgba(0,0,0,.2),
+      0px 20px 20px rgba(0,0,0,.15);
+    margin-bottom: 12px;
   }
+  
   header p {
     margin-top: 8px;
     color: var(--muted);
@@ -303,8 +321,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    flex-wrap: nowrap; /* Impede quebra de linha */
+    gap: 15px; /* Aumentado levemente para dar respiro */
+    flex-wrap: nowrap; 
+    margin-top: auto; /* Garante que o footer fique sempre no final do card */
   }
 
   .price {
@@ -312,7 +331,7 @@
     font-weight: 800;
     color: #4ade80;
     letter-spacing: -0.4px;
-    white-space: nowrap; /* Impede o preço de quebrar */
+    white-space: nowrap; 
     flex-shrink: 0;
   }
   .price span {
@@ -327,18 +346,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px; /* Reduzido para caber melhor */
-    padding: 11px 12px; /* Ajustado para telas menores */
+    gap: 6px; 
+    padding: 11px 12px; 
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.28);
     font-size: 13px;
     font-weight: 800;
     letter-spacing: -0.2px;
     cursor: pointer;
-    white-space: nowrap; /* Impede quebra do texto do botão */
+    white-space: nowrap; 
     overflow: hidden;
-    flex: 1; /* Ocupa o espaço restante */
-    max-width: 165px; /* Evita que o botão fique gigante */
+    flex: 1; /* Ocupa todo o espaço restante */
+    /* max-width: 165px; REMOVIDO PARA ESTICAR ATÉ PERTO DO PREÇO */
     transform: translateY(0);
     transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.12s cubic-bezier(0.22, 1, 0.36, 1),
@@ -417,6 +436,195 @@
     box-shadow:
       0 1px 0 #b45309,
       0 3px 8px rgba(245, 158, 11, 0.3),
+      inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  /* =========================================
+     TABULEIRO DE DAMAS 3D (100% CSS)
+     ========================================= */
+  .product-visual.checkers {
+    background: radial-gradient(circle at 50% 120%, #7f1d1d 0%, #1c0a0a 80%);
+  }
+  .product-visual.checkers::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #ef4444;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.35;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .checkers-scene {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    perspective: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .checkers-scene::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 185px;
+    height: 40px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(4px);
+    z-index: 0;
+  }
+
+  .checkers-board {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 130px;
+    height: 130px;
+    background: repeating-conic-gradient(#e7c9a9 0% 25%, #991b1b 0% 50%) 50% / 32.5px 32.5px;
+    transform: rotateX(50deg) rotateZ(-20deg);
+    transform-style: preserve-3d;
+    border-radius: 6px;
+    border: 6px solid #450a0a;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.25), inset 0 0 18px rgba(0,0,0,0.35);
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .checkers-board::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 45%, #200505 100%);
+    border-radius: 6px;
+    transform: translateZ(-16px);
+    box-shadow: 0 45px 45px rgba(0,0,0,0.65);
+  }
+  .checkers-board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0) 55%);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .product:hover .checkers-board {
+    transform: rotateX(52deg) rotateZ(-20deg) translateZ(6px);
+  }
+
+  /* Peças de dama em CSS 3D (discos com brilho) */
+  .dp {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .dp::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0) 60%);
+  }
+  .dp-red {
+    background: radial-gradient(circle at 35% 30%, #fca5a5, #dc2626 55%, #7f1d1d);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  }
+  .dp-dark {
+    background: radial-gradient(circle at 35% 30%, #a8a29e, #44403c 55%, #1c1917);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  }
+  .dp1 { top: 8px;   left: 8px;  transform: translateZ(4px); }
+  .dp2 { top: 40px;  left: 40px; transform: translateZ(4px); }
+  .dp3 { top: 72px;  left: 8px;  transform: translateZ(4px); }
+  .dp4 { top: 72px;  left: 72px; transform: translateZ(4px); }
+  .product:hover .dp1 { transform: translateZ(22px); }
+  .product:hover .dp2 { transform: translateZ(14px); }
+  .product:hover .dp3 { transform: translateZ(26px); }
+  .product:hover .dp4 { transform: translateZ(12px); }
+
+  /* =========================================
+     GRUPO PINTURA 3D (pincel + lápis)
+     ========================================= */
+  .product-visual.paint {
+    background: radial-gradient(circle at 50% 120%, #a21caf 0%, #1e1b4b 80%);
+  }
+  .product-visual.paint::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #f472b6;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.4;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .img-paint-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+  .img-brush {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    transform: translateX(15px) scale(1.1);
+    z-index: 2;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .img-pencil {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    transform: translateX(-15px) translateY(12px);
+    z-index: 1;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .product:hover .img-brush {
+    transform: translateX(25px) scale(1.2) rotate(-8deg);
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.8));
+  }
+  .product:hover .img-pencil {
+    transform: translateX(-25px) translateY(5px) scale(1.15) rotate(12deg);
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.8));
+  }
+
+  /* Estilo 3D Pintura (Rosa) */
+  .btn-paint-3d {
+    background: linear-gradient(180deg, #f9a8d4 0%, #ec4899 55%, #db2777 100%);
+    color: #3b0620;
+    box-shadow:
+      0 5px 0 #9d174d,
+      0 10px 18px -4px rgba(236, 72, 153, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.65);
+  }
+  .btn-paint-3d:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow:
+      0 7px 0 #9d174d,
+      0 14px 22px -4px rgba(236, 72, 153, 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.75);
+  }
+  .btn-paint-3d:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 1px 0 #9d174d,
+      0 3px 8px rgba(236, 72, 153, 0.3),
       inset 0 2px 4px rgba(0, 0, 0, 0.25);
   }
 
@@ -617,7 +825,7 @@
   @media (max-width: 600px) {
     body { padding: 18px 12px 40px; }
     header { margin-bottom: 22px; }
-    header h1 { font-size: 22px; }
+    header h1 { font-size: 26px; }
     header p { font-size: 13.5px; }
 
     .products {
@@ -628,7 +836,10 @@
     .product-visual { height: 170px; }
     
     .chess-scene { transform: scale(0.9); }
+    .checkers-scene { transform: scale(0.9); }
     .img-calculator { width: 95px; height: 95px; }
+    .img-brush { width: 95px; height: 95px; }
+    .img-pencil { width: 78px; height: 78px; }
     .img-money { width: 80px; height: 80px; }
 
     .product-body { padding: 16px; }
@@ -636,14 +847,13 @@
     .product .desc { font-size: 12.5px; margin-bottom: 14px; }
     .price { font-size: 18px; }
     
-    /* Ajuste fino do botão no celular */
-    .btn-buy-3d { font-size: 12px; padding: 11px 10px; max-width: 150px; gap: 4px; }
+    /* Ajuste fino do botão no celular (Removido o max-width) */
+    .btn-buy-3d { font-size: 12px; padding: 11px 10px; gap: 4px; }
     .btn-buy-3d .icon-3d { width: 18px; height: 18px; }
     
     #qrcode, #qrcode img, #qrcode canvas { width: 170px !important; height: 170px !important; }
   }
 </style>
-<base target="_blank">
 </head>
 <body>
 <div class="wrap">
@@ -685,13 +895,49 @@
                 <rect x="7.5" y="20.5" width="13" height="3.6" rx="1.6" fill="#022c22" stroke="#a7f3d0" stroke-width="1.2"/>
               </svg>
             </span>
-            <span>Jogar &amp; Pagar</span>
+            <span>Pagar e Enviar Comprovante</span>
           </button>
         </div>
       </div>
     </article>
 
-    <!-- PRODUTO 2: CALCULADORA -->
+
+    <!-- PRODUTO 2: DAMAS -->
+    <article class="product">
+      <div class="product-visual checkers">
+        <!-- Tabuleiro de damas 3D em CSS, com peças em CSS -->
+        <div class="checkers-scene">
+          <div class="checkers-board">
+            <div class="dp dp-red dp1"></div>
+            <div class="dp dp-dark dp2"></div>
+            <div class="dp dp-red dp3"></div>
+            <div class="dp dp-dark dp4"></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Jogo</div>
+        <h2>Joguinho de Damas</h2>
+        <p class="desc">
+          Jogo de damas completo em HTML. Jogue contra o computador ou com um amigo, sem precisar instalar nada.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-chess-3d" onclick="openPixModal('Joguinho de Damas', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <circle cx="14" cy="6.2" r="3.4" fill="#064e3b" stroke="#ecfdf5" stroke-width="1.3"/>
+                <path d="M10.2 10.8C10.2 9.8 11.8 9.4 14 9.4C16.2 9.4 17.8 9.8 17.8 10.8L16.5 13.2H11.5L10.2 10.8Z" fill="#065f46" stroke="#ecfdf5" stroke-width="1.2"/>
+                <path d="M11.6 13.2H16.4L18.2 20.5H9.8L11.6 13.2Z" fill="#047857" stroke="#ecfdf5" stroke-width="1.2"/>
+                <rect x="7.5" y="20.5" width="13" height="3.6" rx="1.6" fill="#022c22" stroke="#a7f3d0" stroke-width="1.2"/>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+    <!-- PRODUTO 3: CALCULADORA -->
     <article class="product">
       <div class="product-visual calc">
         <!-- Grupo de Imagens 3D: Calculadora + Saquinho de Dinheiro -->
@@ -723,7 +969,39 @@
                 <circle cx="14" cy="21.4" r="1.4" fill="#fbbf24"/>
               </svg>
             </span>
-            <span>Simular &amp; Pagar</span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUTO 4: DESENHO -->
+    <article class="product">
+      <div class="product-visual paint">
+        <!-- Grupo de Imagens 3D: Pincel + Lápis -->
+        <div class="img-paint-group">
+          <img src="https://img.icons8.com/3d-fluency/512/paint-brush.png" alt="Pincel 3D" class="img-brush" />
+          <img src="https://img.icons8.com/3d-fluency/512/pencil.png" alt="Lápis 3D" class="img-pencil" />
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Ferramenta</div>
+        <h2>Quadro de Desenho Infantil</h2>
+        <p class="desc">
+          Quadro de pintar estilo Paint, feito para crianças. Cores, pincéis e borracha — tudo direto no navegador.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-paint-3d" onclick="openPixModal('Quadro de Desenho Infantil', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <path d="M14 4C8 4 4 8.5 4 14S7.5 24 12.5 24c1.8 0 2.5-1.2 2.5-2.5 0-1.5-1.2-2-1.2-3.2 0-1.2 1-2.3 2.7-2.3h2.6C21.6 16 24 13 24 9.8 24 6.2 19.5 4 14 4Z" fill="#831843" stroke="#fdf2f8" stroke-width="1.3"/>
+                <circle cx="9.5" cy="10" r="1.6" fill="#f472b6"/>
+                <circle cx="14.5" cy="7.6" r="1.6" fill="#fbbf24"/>
+                <circle cx="19.4" cy="9.8" r="1.6" fill="#34d399"/>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
           </button>
         </div>
       </div>
