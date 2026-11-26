@@ -101,6 +101,7 @@
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
     display: flex;
     flex-direction: column;
+    min-width: 0;
   }
   .product:hover {
     transform: translateY(-6px);
@@ -628,6 +629,460 @@
       inset 0 2px 4px rgba(0, 0, 0, 0.25);
   }
 
+  /* =========================================
+     FIO QUENTE 3D (arame + argola)
+     ========================================= */
+  .product-visual.hotwire {
+    background: radial-gradient(circle at 50% 120%, #7c2d12 0%, #180a06 80%);
+  }
+  .product-visual.hotwire::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #f59e0b;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.38;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .hw-scene {
+    position: relative;
+    width: 190px;
+    height: 172px;
+    z-index: 1;
+    perspective: 600px;
+  }
+
+  /* Placa metálica de base, deitada em perspectiva */
+  .hw-base {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 176px;
+    height: 58px;
+    margin-left: -88px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: linear-gradient(180deg, #3b4a61 0%, #22303f 45%, #0d1522 100%);
+    box-shadow:
+      0 26px 26px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: rotateX(64deg) rotateZ(-4deg);
+  }
+  .hw-base::after {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+  }
+
+  .hw-wire {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 190px;
+    height: 160px;
+    overflow: visible;
+    filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.55));
+    transform: rotateX(6deg);
+  }
+
+  /* Argola de metal passando pelo arame */
+  .hw-ring {
+    position: absolute;
+    left: 67px;
+    top: 61px;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    border: 5px solid #f59e0b;
+    transform: rotateX(46deg) rotateZ(-6deg);
+    box-shadow:
+      inset 0 3px 5px rgba(255, 255, 255, 0.7),
+      inset 0 -3px 6px rgba(120, 53, 15, 0.85),
+      0 10px 14px rgba(0, 0, 0, 0.55),
+      0 0 16px rgba(250, 204, 21, 0.4);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 4;
+  }
+  .hw-ring::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(254, 240, 138, 0.4);
+  }
+
+  /* Faísca de choque encostando no arame */
+  .hw-spark {
+    position: absolute;
+    left: 58px;
+    top: 57px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    z-index: 6;
+    background: radial-gradient(circle, #ffffff 0%, #fffde7 14%, #fde047 32%, rgba(250, 204, 21, 0.5) 52%, rgba(249, 115, 22, 0) 72%);
+    filter: drop-shadow(0 0 12px rgba(250, 204, 21, 1));
+    animation: hwSpark 1.1s ease-in-out infinite;
+  }
+  .hw-spark::before,
+  .hw-spark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 2px;
+    width: 44px;
+    margin: -1px 0 0 -22px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fffbeb 44%, #ffffff 50%, #fffbeb 56%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(22deg);
+  }
+  .hw-spark::after {
+    width: 30px;
+    margin-left: -15px;
+    transform: rotate(-44deg);
+  }
+  @keyframes hwSpark {
+    0%, 100% { transform: scale(0.72) rotate(-8deg); opacity: 0.55; }
+    50% { transform: scale(1.15) rotate(6deg); opacity: 1; }
+  }
+
+  .product:hover .hw-ring {
+    transform: rotateX(46deg) rotateZ(-6deg) translateY(-10px) translateZ(14px);
+  }
+
+  /* =========================================
+     RALI TRILHA 3D (estrada de terra + carro)
+     ========================================= */
+  .product-visual.rally {
+    background: radial-gradient(circle at 50% 120%, #78350f 0%, #180d05 80%);
+  }
+  .product-visual.rally::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #f59e0b;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.32;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .rally-scene {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: 172px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .rally-art {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 172px;
+  }
+
+  .rally-car {
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    transform: rotate(-2deg);
+    filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.8));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 4;
+  }
+
+  .rally-dust {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(253, 230, 138, 0.55) 0%, rgba(180, 83, 9, 0) 70%);
+    filter: blur(4px);
+    z-index: 3;
+  }
+  .rd1 { left: calc(50% - 56px); bottom: 4px; width: 32px; height: 32px; }
+  .rd2 { left: calc(50% - 76px); bottom: 16px; width: 42px; height: 42px; opacity: 0.7; }
+  .rd3 { right: calc(50% - 56px); bottom: 4px; width: 28px; height: 28px; }
+  .rd4 { right: calc(50% - 76px); bottom: 16px; width: 38px; height: 38px; opacity: 0.65; }
+
+  .rally-shadow {
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 104px;
+    height: 20px;
+    margin-left: -52px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(3px);
+    z-index: 3;
+  }
+
+  .product:hover .rally-car {
+    transform: translateY(-6px) rotate(-4deg) scale(1.06);
+  }
+
+  /* =========================================
+     NAVE ESPACIAL 3D (nave + tiros + inimigos)
+     ========================================= */
+  .product-visual.space {
+    background: radial-gradient(circle at 50% 118%, #1e1b4b 0%, #060814 80%);
+  }
+  .product-visual.space::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #6366f1;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.38;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .space-stars {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.9;
+    background-image:
+      radial-gradient(1.6px 1.6px at 14% 24%, #e0f2fe 50%, transparent 51%),
+      radial-gradient(1.3px 1.3px at 78% 16%, #bae6fd 50%, transparent 51%),
+      radial-gradient(1.1px 1.1px at 34% 12%, #ffffff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 62% 34%, #c7d2fe 50%, transparent 51%),
+      radial-gradient(1.1px 1.1px at 88% 52%, #e0f2fe 50%, transparent 51%),
+      radial-gradient(1.2px 1.2px at 8% 64%, #ffffff 50%, transparent 51%),
+      radial-gradient(1.4px 1.4px at 48% 74%, #bae6fd 50%, transparent 51%),
+      radial-gradient(1.1px 1.1px at 24% 46%, #c7d2fe 50%, transparent 51%),
+      radial-gradient(1.2px 1.2px at 70% 84%, #ffffff 50%, transparent 51%);
+  }
+
+  .space-scene {
+    position: relative;
+    width: 190px;
+    height: 172px;
+    z-index: 1;
+  }
+
+  .space-ship {
+    position: absolute;
+    left: 50%;
+    top: 28px;
+    width: 120px;
+    height: 120px;
+    margin-left: -60px;
+    transform: rotate(-16deg);
+    filter:
+      drop-shadow(0 0 18px rgba(56, 189, 248, 0.5))
+      drop-shadow(0 14px 10px rgba(0, 0, 0, 0.6));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 4;
+  }
+
+  /* Tiros subindo da nave em direção aos inimigos */
+  .space-bolt {
+    position: absolute;
+    width: 5px;
+    height: 40px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #ffffff 0%, #a5f3fc 18%, rgba(34, 211, 238, 0.9) 50%, rgba(34, 211, 238, 0) 100%);
+    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.95));
+    transform-origin: bottom center;
+    z-index: 3;
+    animation: boltPulse 1s ease-in-out infinite;
+  }
+  .sb1 { left: 124px; top: 44px; transform: rotate(38deg); }
+  .sb2 { left: 50px; top: 54px; transform: rotate(-42deg); animation-delay: 0.3s; }
+  @keyframes boltPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .space-enemy {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    filter: hue-rotate(160deg) saturate(1.5) brightness(0.95) drop-shadow(0 0 10px rgba(248, 113, 113, 0.55));
+    z-index: 2;
+    opacity: 0.92;
+  }
+  .en1 { right: 4px; top: 12px; transform: rotate(150deg); }
+  .en2 { left: 4px; top: 44px; transform: rotate(200deg) scale(0.78); opacity: 0.8; }
+
+  .space-hit {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    z-index: 4;
+    filter: hue-rotate(168deg) saturate(1.9) drop-shadow(0 0 9px rgba(251, 146, 60, 0.95));
+    animation: hitPop 1.3s ease-in-out infinite;
+  }
+  .ht1 { right: 16px; top: 24px; width: 24px; height: 24px; }
+  .ht2 { left: 13px; top: 53px; width: 20px; height: 20px; animation-delay: 0.45s; }
+  @keyframes hitPop {
+    0%, 100% { transform: scale(0.65); opacity: 0.45; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .product:hover .space-ship {
+    transform: rotate(-16deg) translateY(-8px) scale(1.07);
+  }
+
+  /* =========================================
+     DOMINÓ 3D (peças em pé sobre a mesa)
+     ========================================= */
+  .product-visual.domino {
+    background: radial-gradient(circle at 50% 120%, #0f766e 0%, #05100e 80%);
+  }
+  .product-visual.domino::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #2dd4bf;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.32;
+    z-index: 0;
+    bottom: -20px;
+  }
+
+  .domino-scene {
+    position: relative;
+    width: 190px;
+    height: 172px;
+    z-index: 1;
+    perspective: 700px;
+  }
+
+  .domino-table {
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 178px;
+    height: 76px;
+    margin-left: -89px;
+    transform: rotateX(64deg);
+    background: linear-gradient(180deg, #134e4a 0%, #072e2a 60%, #041f1c 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    box-shadow:
+      0 26px 30px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 rgba(45, 212, 191, 0.35);
+  }
+
+  .dom-tile {
+    position: absolute;
+    width: 48px;
+    height: 96px;
+    border-radius: 9px;
+    background: linear-gradient(150deg, #fffdf6 0%, #f4ecd8 55%, #ddd1b6 100%);
+    border: 1px solid rgba(120, 113, 108, 0.5);
+    box-shadow:
+      0 12px 16px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset -2px 0 4px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3;
+  }
+  .dom-tile::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgba(120, 113, 108, 0.12) 0%, rgba(120, 113, 108, 0.85) 50%, rgba(120, 113, 108, 0.12) 100%);
+  }
+
+  .dom-half {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 6px 7px;
+  }
+
+  .pip {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+    background: radial-gradient(circle at 40% 35%, #475569 0%, #1e293b 55%, #0b1220 100%);
+    box-shadow:
+      inset 0 1px 2px rgba(0, 0, 0, 0.85),
+      0 1px 0 rgba(255, 255, 255, 0.85);
+  }
+  .g1 { grid-area: 1 / 1; } .g2 { grid-area: 1 / 2; } .g3 { grid-area: 1 / 3; }
+  .g4 { grid-area: 2 / 1; } .g5 { grid-area: 2 / 2; } .g6 { grid-area: 2 / 3; }
+  .g7 { grid-area: 3 / 1; } .g8 { grid-area: 3 / 2; } .g9 { grid-area: 3 / 3; }
+
+  .dt-left {
+    left: 42px;
+    bottom: 24px;
+    transform: rotateZ(-9deg) rotateY(12deg);
+  }
+  .dt-right {
+    left: 100px;
+    bottom: 30px;
+    transform: rotateZ(8deg) rotateY(-10deg);
+    z-index: 5;
+  }
+
+  .product:hover .dt-left { transform: rotateZ(-12deg) rotateY(12deg) translateY(-6px); }
+  .product:hover .dt-right { transform: rotateZ(11deg) rotateY(-10deg) translateY(-8px); }
+
+  /* Botões 3D dos novos jogos (mesma mecânica, cores próprias) */
+  .btn-game-3d {
+    background: linear-gradient(180deg, var(--b1) 0%, var(--b2) 55%, var(--b3) 100%);
+    color: var(--fg);
+    box-shadow:
+      0 5px 0 var(--b4),
+      0 10px 18px -4px rgba(var(--glow), 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
+  .btn-game-3d:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow:
+      0 7px 0 var(--b4),
+      0 14px 22px -4px rgba(var(--glow), 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  }
+  .btn-game-3d:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 1px 0 var(--b4),
+      0 3px 8px rgba(var(--glow), 0.3),
+      inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-hotwire-3d { --b1: #fdba74; --b2: #f97316; --b3: #ea580c; --b4: #9a3412; --fg: #2b0f00; --glow: 249, 115, 22; }
+  .btn-rally-3d   { --b1: #93c5fd; --b2: #3b82f6; --b3: #2563eb; --b4: #1e40af; --fg: #061c3d; --glow: 59, 130, 246; }
+  .btn-space-3d   { --b1: #c4b5fd; --b2: #8b5cf6; --b3: #7c3aed; --b4: #5b21b6; --fg: #1b0f3a; --glow: 139, 92, 246; }
+  .btn-domino-3d  { --b1: #67e8f9; --b2: #06b6d4; --b3: #0891b2; --b4: #155e75; --fg: #03252b; --glow: 6, 182, 212; }
+
   /* Footer note */
   .note {
     text-align: center;
@@ -837,6 +1292,7 @@
     
     .chess-scene { transform: scale(0.9); }
     .checkers-scene { transform: scale(0.9); }
+    .hw-scene, .space-scene, .domino-scene { transform: scale(0.9); }
     .img-calculator { width: 95px; height: 95px; }
     .img-brush { width: 95px; height: 95px; }
     .img-pencil { width: 78px; height: 78px; }
@@ -937,7 +1393,247 @@
         </div>
       </div>
     </article>
-    <!-- PRODUTO 3: CALCULADORA -->
+
+    <!-- PRODUTO 3: FIO QUENTE -->
+    <article class="product">
+      <div class="product-visual hotwire">
+        <!-- Arame 3D + argola em CSS/SVG -->
+        <div class="hw-scene">
+          <div class="hw-base"></div>
+          <svg class="hw-wire" viewBox="0 0 190 160" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hwMetal" x1="0" y1="0" x2="0" y2="160" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f8fafc" />
+                <stop offset="0.35" stop-color="#cbd5e1" />
+                <stop offset="0.62" stop-color="#64748b" />
+                <stop offset="1" stop-color="#334155" />
+              </linearGradient>
+              <linearGradient id="hwShine" x1="0" y1="0" x2="0" y2="160" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <rect x="6" y="80" width="10" height="70" rx="4" fill="#1e293b" />
+            <rect x="174" y="40" width="10" height="110" rx="4" fill="#1e293b" />
+            <path d="M11 84 C 30 84 34 40 56 40 C 74 40 80 94 88 94 L112 94 C 120 94 126 36 148 36 C 162 36 168 44 179 44"
+                  stroke="url(#hwMetal)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M11 80 C 30 80 34 36 56 36 C 74 36 80 90 88 90 L112 90 C 120 90 126 32 148 32 C 162 32 168 40 179 40"
+                  stroke="url(#hwShine)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+          </svg>
+          <div class="hw-ring"></div>
+          <div class="hw-spark"></div>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Jogo</div>
+        <h2>Joguinho de Fio Quente</h2>
+        <p class="desc">
+          Passe a argola pelo arame sem encostar. Se encostar, dá choque e perde — direto no navegador.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-game-3d btn-hotwire-3d" onclick="openPixModal('Joguinho de Fio Quente', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <path d="M15.8 2.8 6.8 15.4h4.9L11 25.2l9.4-13.6h-5.1l0.5-8.8Z" fill="#7c2d12" stroke="#fff7ed" stroke-width="1.3" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUTO 4: RALI TRILHA -->
+    <article class="product">
+      <div class="product-visual rally">
+        <!-- Trilha de terra 3D + carro Icons8 -->
+        <div class="rally-scene">
+          <svg class="rally-art" viewBox="0 0 420 172" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="rallyGround" x1="0" y1="64" x2="0" y2="172" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#8a5427" />
+                <stop offset="0.45" stop-color="#5d3416" />
+                <stop offset="1" stop-color="#2a1408" />
+              </linearGradient>
+              <linearGradient id="rallyRoad" x1="0" y1="70" x2="0" y2="172" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#41240f" />
+                <stop offset="0.45" stop-color="#5f3617" />
+                <stop offset="1" stop-color="#33200f" />
+              </linearGradient>
+            </defs>
+
+            <!-- serras ao fundo -->
+            <path d="M0 66 C 20 46 40 44 60 60 C 78 46 96 45 114 61 C 134 45 152 44 170 60 C 190 44 210 44 228 60 C 248 45 268 44 286 60 C 306 46 326 45 344 61 C 364 46 386 46 404 62 C 412 55 416 56 420 60 L420 78 L0 78 Z" fill="#2c150a" opacity="0.85" />
+
+            <!-- terreno de terra -->
+            <rect x="0" y="70" width="420" height="102" fill="url(#rallyGround)" />
+            <path d="M0 70 H420" stroke="#fbbf24" stroke-opacity="0.16" />
+
+            <!-- estrada -->
+            <path d="M202 70 L218 70 L262 172 L158 172 Z" fill="url(#rallyRoad)" />
+            <path d="M202 70 L158 172" stroke="#fbbf24" stroke-opacity="0.3" stroke-width="2" />
+            <path d="M218 70 L262 172" stroke="#fbbf24" stroke-opacity="0.3" stroke-width="2" />
+            <path d="M210 76 L210 168" stroke="#fbbf24" stroke-width="4" stroke-dasharray="12 16" stroke-linecap="round" opacity="0.85" />
+
+            <!-- marcos da trilha -->
+            <g fill="#f3e7cf">
+              <rect x="184" y="90" width="2.5" height="10" rx="1.2" />
+              <rect x="172" y="118" width="3.5" height="14" rx="1.6" />
+              <rect x="159" y="148" width="4.5" height="18" rx="2" />
+              <rect x="236" y="90" width="2.5" height="10" rx="1.2" />
+              <rect x="248" y="118" width="3.5" height="14" rx="1.6" />
+              <rect x="261" y="148" width="4.5" height="18" rx="2" />
+            </g>
+            <g fill="#f59e0b">
+              <rect x="184" y="90" width="2.5" height="3" rx="1.2" />
+              <rect x="172" y="118" width="3.5" height="4" rx="1.6" />
+              <rect x="159" y="148" width="4.5" height="5" rx="2" />
+              <rect x="236" y="90" width="2.5" height="3" rx="1.2" />
+              <rect x="248" y="118" width="3.5" height="4" rx="1.6" />
+              <rect x="261" y="148" width="4.5" height="5" rx="2" />
+            </g>
+
+            <!-- pedrinhas e tufos -->
+            <ellipse cx="70" cy="150" rx="6" ry="2.6" fill="#6b4423" opacity="0.8" />
+            <ellipse cx="340" cy="140" rx="7" ry="3" fill="#6b4423" opacity="0.75" />
+            <ellipse cx="120" cy="166" rx="4" ry="1.8" fill="#7a4a24" opacity="0.7" />
+            <ellipse cx="320" cy="166" rx="4.5" ry="2" fill="#7a4a24" opacity="0.7" />
+            <path d="M48 132 l3 -8 l2 8 Z M52 132 l4 -6 l1 6 Z" fill="#3f2410" opacity="0.9" />
+            <path d="M376 122 l3 -9 l2 9 Z M380 122 l4 -6 l1 6 Z" fill="#3f2410" opacity="0.9" />
+          </svg>
+          <div class="rally-dust rd1"></div>
+          <div class="rally-dust rd2"></div>
+          <div class="rally-dust rd3"></div>
+          <div class="rally-dust rd4"></div>
+          <div class="rally-shadow"></div>
+          <img src="https://img.icons8.com/3d-fluency/512/car.png" alt="Carro de rali 3D" class="rally-car" />
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Jogo</div>
+        <h2>Joguinho de Rali Trilha</h2>
+        <p class="desc">
+          Corrida de rali fora de estrada em HTML. Acelere pela trilha, desvie dos obstáculos e chegue ao fim.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-game-3d btn-rally-3d" onclick="openPixModal('Joguinho de Rali Trilha', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <rect x="6.2" y="3.6" width="2.2" height="20.8" rx="1.1" fill="#1e3a8a" stroke="#dbeafe" stroke-width="1"/>
+                <rect x="8.6" y="4.6" width="13" height="9.8" rx="1.6" fill="#1d4ed8" stroke="#dbeafe" stroke-width="1.2"/>
+                <g clip-path="url(#flagClip)">
+                  <rect x="8.6" y="4.6" width="4.33" height="3.27" fill="#eff6ff"/>
+                  <rect x="17.27" y="4.6" width="4.33" height="3.27" fill="#eff6ff"/>
+                  <rect x="12.93" y="7.87" width="4.33" height="3.27" fill="#eff6ff"/>
+                  <rect x="8.6" y="11.13" width="4.33" height="3.27" fill="#eff6ff"/>
+                  <rect x="17.27" y="11.13" width="4.33" height="3.27" fill="#eff6ff"/>
+                </g>
+                <defs>
+                  <clipPath id="flagClip">
+                    <rect x="8.6" y="4.6" width="13" height="9.8" rx="1.6"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUTO 5: NAVE ESPACIAL -->
+    <article class="product">
+      <div class="product-visual space">
+        <div class="space-stars"></div>
+        <!-- Nave 3D + tiros + inimigos -->
+        <div class="space-scene">
+          <img src="https://img.icons8.com/3d-fluency/512/space-fighter.png" alt="Nave espacial 3D" class="space-ship" />
+          <div class="space-bolt sb1"></div>
+          <div class="space-bolt sb2"></div>
+          <img src="https://img.icons8.com/3d-fluency/512/space-fighter.png" alt="" class="space-enemy en1" />
+          <img src="https://img.icons8.com/3d-fluency/512/space-fighter.png" alt="" class="space-enemy en2" />
+          <img src="https://img.icons8.com/3d-fluency/512/sparkles.png" alt="" class="space-hit ht1" />
+          <img src="https://img.icons8.com/3d-fluency/512/sparkles.png" alt="" class="space-hit ht2" />
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Jogo</div>
+        <h2>Joguinho de Nave Espacial</h2>
+        <p class="desc">
+          Nave espacial em HTML: destrua os inimigos no espaço, desvie dos tiros e sobreviva o máximo que puder.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-game-3d btn-space-3d" onclick="openPixModal('Joguinho de Nave Espacial', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <path d="M14 2.6c3.9 3.2 5.7 7.4 5.7 11.4 0 2.2-.4 4.2-1.1 5.9H9.4c-.7-1.7-1.1-3.7-1.1-5.9 0-4 1.8-8.2 5.7-11.4Z" fill="#4c1d95" stroke="#ede9fe" stroke-width="1.2"/>
+                <circle cx="14" cy="10.4" r="2.5" fill="#a78bfa" stroke="#ede9fe" stroke-width="1"/>
+                <path d="M9.3 16.3 5.9 21.9l4.6-1.5Z" fill="#5b21b6" stroke="#ede9fe" stroke-width="1.1" stroke-linejoin="round"/>
+                <path d="M18.7 16.3 22.1 21.9l-4.6-1.5Z" fill="#5b21b6" stroke="#ede9fe" stroke-width="1.1" stroke-linejoin="round"/>
+                <path d="M11.9 20.9c.3 2.4 1.1 4.2 2.1 4.2s1.8-1.8 2.1-4.2" fill="#fbbf24" stroke="#fde68a" stroke-width="1"/>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUTO 6: DOMINÓ -->
+    <article class="product">
+      <div class="product-visual domino">
+        <!-- Peças de dominó 3D em CSS -->
+        <div class="domino-scene">
+          <div class="domino-table"></div>
+          <div class="dom-tile dt-left">
+            <div class="dom-half">
+              <span class="pip g1"></span><span class="pip g3"></span><span class="pip g7"></span>
+              <span class="pip g9"></span><span class="pip g4"></span><span class="pip g6"></span>
+            </div>
+            <div class="dom-half">
+              <span class="pip g1"></span><span class="pip g5"></span><span class="pip g9"></span>
+            </div>
+          </div>
+          <div class="dom-tile dt-right">
+            <div class="dom-half">
+              <span class="pip g1"></span><span class="pip g3"></span><span class="pip g7"></span><span class="pip g9"></span>
+            </div>
+            <div class="dom-half">
+              <span class="pip g3"></span><span class="pip g7"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Jogo</div>
+        <h2>Joguinho de Dominó</h2>
+        <p class="desc">
+          Dominó completo em HTML. Jogue contra o computador ou com um amigo, sem precisar instalar nada.
+        </p>
+        <div class="product-footer">
+          <div class="price">R$ 10<span>,00</span></div>
+          <button type="button" class="btn-buy-3d btn-game-3d btn-domino-3d" onclick="openPixModal('Joguinho de Dominó', 10.00)">
+            <span class="icon-3d" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="22" height="22" fill="none">
+                <rect x="7.4" y="3.6" width="13.2" height="20.8" rx="3" fill="#0e7490" stroke="#ecfeff" stroke-width="1.2"/>
+                <line x1="8.6" y1="14" x2="19.4" y2="14" stroke="#ecfeff" stroke-width="1.1" stroke-linecap="round"/>
+                <circle cx="11.2" cy="8.7" r="1.55" fill="#ecfeff"/>
+                <circle cx="16.8" cy="8.7" r="1.55" fill="#ecfeff"/>
+                <circle cx="14" cy="18.2" r="1.55" fill="#ecfeff"/>
+                <circle cx="11.2" cy="21.4" r="1.55" fill="#a5f3fc"/>
+                <circle cx="16.8" cy="21.4" r="1.55" fill="#a5f3fc"/>
+              </svg>
+            </span>
+            <span>Pagar e Enviar Comprovante</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUTO 7: CALCULADORA -->
     <article class="product">
       <div class="product-visual calc">
         <!-- Grupo de Imagens 3D: Calculadora + Saquinho de Dinheiro -->
@@ -975,7 +1671,7 @@
       </div>
     </article>
 
-    <!-- PRODUTO 4: DESENHO -->
+    <!-- PRODUTO 8: DESENHO -->
     <article class="product">
       <div class="product-visual paint">
         <!-- Grupo de Imagens 3D: Pincel + Lápis -->
